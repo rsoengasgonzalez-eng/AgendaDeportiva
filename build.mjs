@@ -17,4 +17,4 @@ for (const entry of await readdir('public', { withFileTypes: true })) {
   if (entry.isFile()) await copyFile(`public/${entry.name}`, entry.name);
 }
 
-console.log('✓ Cloudflare Pages build complete: dist/');
+console.log('✓ Cloudflare Workers Static Assets build complete: dist/');

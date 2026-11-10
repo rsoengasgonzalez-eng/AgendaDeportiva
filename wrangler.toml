@@ -1,6 +1,8 @@
-name = "agenda-deportiva"
-pages_build_output_dir = "dist"
+name = "agendadeportiva"
 compatibility_date = "2026-11-10"
 
-[vars]
-APP_ENV = "production"
+# Cloudflare Workers Static Assets deployment.
+# No `main` entry point is required for this static SPA.
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
