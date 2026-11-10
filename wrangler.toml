@@ -1,3 +1,6 @@
 name = "agenda-deportiva"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-11-10"
+
+[vars]
+APP_ENV = "production"

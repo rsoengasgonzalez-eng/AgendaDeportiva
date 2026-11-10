@@ -30,23 +30,32 @@ npx wrangler pages dev dist
 
 ## Publicar en Cloudflare Pages
 
-### Desde Git
+### Opción recomendada: desde Git
 
-1. Sube esta carpeta a GitHub o GitLab.
+1. Sube el contenido de esta carpeta a GitHub o GitLab.
 2. En **Workers & Pages → Create → Pages → Connect to Git**.
-3. Configura:
+3. Configura exactamente:
    - Framework preset: **None**
    - Build command: `npm run build`
    - Build output directory: `dist`
+   - Root directory: `/` (vacío si el repositorio contiene directamente estos archivos)
 4. Despliega.
 
-### Desde terminal
+Este método publica tanto la web como las funciones `/api/sports` y `/api/f1`.
+
+### Desde terminal con Wrangler
 
 ```bash
-npm install
 npx wrangler login
-npm run deploy
+npm run build
+npx wrangler pages deploy dist --project-name agenda-deportiva
 ```
+
+### Carga directa desde el panel
+
+Si se usa la opción de arrastrar y soltar, hay que comprimir **el contenido de `dist/`**, no la carpeta completa del código fuente. La carga directa sirve la web estática, pero no publica las Pages Functions; para activar las APIs debe utilizarse Git o Wrangler.
+
+La versión corregida mantiene además `app.js` y `styles.css` en la raíz, de modo que una previsualización del código fuente no quede en blanco por rutas de recursos inexistentes.
 
 ## Variables de entorno
 
@@ -73,8 +82,9 @@ No expongas claves premium en variables `VITE_*`: las funciones de `/functions/a
 ## Estructura
 
 ```text
-src/                 React y estilos
+src/                 JavaScript y estilos fuente
 functions/api/       Cloudflare Pages Functions
-public/              PWA, cabeceras y fallback SPA
+public/              PWA, rutas, cabeceras y fallback SPA
+dist/                Salida compilada para Cloudflare Pages
 wrangler.toml        Configuración de despliegue
 ```
